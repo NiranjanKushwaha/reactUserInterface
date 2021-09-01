@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.heading th{
+  cursor: pointer;
+}
+
+.heading th:hover{
+  color: aquamarine;
+}
+
+.clickable_fname:hover{
+  cursor: pointer;
+  color:deeppink;
+}
+
+.link{
+  text-decoration: none;
+  color:black;
+}
+.link:hover{
+  color: hotpink;
+}
