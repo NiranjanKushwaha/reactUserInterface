@@ -50,7 +50,7 @@ const Table = (props) => {
                     <td>{el.last_name}</td>
                     <td>{el.age}</td>
                     <td>{el.email}</td>
-                    <td><Link to={el.web} className='link'>{el.web}</Link></td>
+                    <td><Link to={el.web} className='link' target="_blank">{el.web}</Link></td>
                   </tr>
                 );
               })}
