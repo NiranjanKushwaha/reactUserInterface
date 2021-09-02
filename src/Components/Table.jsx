@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
-const Table = ({ data }) => {
+const Table = ({ data}) => {
   let pageSize = 50;
+  console.log('data received in table: '+data.length);
   let totalPages = Math.ceil(data.length / pageSize);
-  let [startIndex,setStartIndex]=useState(1);
-  let [endIndex,setEndIndex]=useState(Math.ceil(data.length/totalPages));
+  let [startIndex,setStartIndex]=useState(0);
+  let [endIndex,setEndIndex]=useState(Math.ceil(data.length/totalPages)-1);
+  const [currentPage, setCurrentPage] = useState(1);
   
   let pagesList = [];
   const sortTable = (columnName) => {
@@ -21,12 +23,16 @@ const Table = ({ data }) => {
   const ChangePage=(page)=>{
     setStartIndex((page-1)*pageSize);
     setEndIndex((page-1)*pageSize+pageSize);
+    setCurrentPage(page);
+    // data.slice(startIndex, endIndex)
   }
+
   return (
     <div>
       <table className="table">
         <thead>
           <tr className="heading">
+            <td>Index</td>
             <th scope="col" onClick={() => sortTable("first_name")}>
               First Name
             </th>
@@ -38,9 +44,10 @@ const Table = ({ data }) => {
         </thead>
         <tbody>
           {data &&
-            data.slice(startIndex, endIndex).map((el, index) => {
+             data.slice(startIndex, endIndex).map((el, index) => {
               return (
                 <tr key={index}>
+                  <td>{index}</td>
                   <td className="clickable_fname">
                     <Link to={`/users/${el.id}`} className="link">
                       {el.first_name}
@@ -60,7 +67,7 @@ const Table = ({ data }) => {
         </tbody>
       </table>
       <div className="d-flex justify-content-center">
-        <Pagination pagesList={pagesList} ChangePage={ChangePage} />
+        <Pagination pagesList={pagesList} ChangePage={ChangePage} currentPage={currentPage} />
       </div>
     </div>
   );

@@ -7,10 +7,11 @@ const Users = ({ data }) => {
 
   const handleInput = (e) => {
     setInput(e.target.value.toLowerCase());
-    searchName(e);
+    console.log("As entered: " +e.target.value);
     if (e.key === "Enter") {
       alert("Entered");
     }
+    searchName(e);
   };
 
   const handleKeyPress = (event) => {
@@ -20,6 +21,7 @@ const Users = ({ data }) => {
   };
   const searchName = (e) => {
     e.preventDefault();
+    console.log("searchName button: "+input);
     const filterArr = [];
     data.forEach((el) => {
       if (el.first_name.toLowerCase().includes(input) || el.last_name.toLowerCase().includes(input)) {
@@ -34,7 +36,7 @@ const Users = ({ data }) => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <h3 className="m-3">Users</h3>
+        <h3 className="mt-3">Users</h3>
         <div>
           <input
             type="text"

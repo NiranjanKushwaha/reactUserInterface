@@ -12,7 +12,6 @@ export const App = () => {
     const getData = async () => {
       const res = await axios(url);
       setData(res.data);
-      console.log(res.data);
     };
     getData();
   }, []);
