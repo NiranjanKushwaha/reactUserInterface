@@ -1,22 +1,21 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 const DetailsPage = ({data}) => {
+    const[user,setUser]=useState([]);
     let {id}=useParams();
-    // let user=data.find(x => x.id === id);
+    useEffect(()=>{
+        let userData=data.filter(el=>el.id==id);
+        console.log(userData);
+        setUser(userData);
+    },[])
     return (
         <div>
-            <h1>{id}</h1>
-            {/* {
-                data.filter((list)=>list.id===id).map((list,index)=>(
-                   <div key={index}>
-                      <Link to="/"><i class="fas fa-arrow-left"></i>Details: {list.first_name}</Link>
-                      <div>
-                          <p>{list.first_name}</p>
-                      </div>
-                   </div>
-                ))
-            } */}
-          {/* <p>{user.first_name}</p> */}
+        {user.map(el=>(
+            <div key={el.id}>
+            <p>{el.first_name}</p>
+            <p>{el.last_name}</p>
+            </div>
+        ))}
         </div>
     )
 }
