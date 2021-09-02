@@ -20,7 +20,6 @@ const Users = ({ data }) => {
   };
   const searchName = (e) => {
     e.preventDefault();
-    console.log(input);
     const filterArr = [];
     data.forEach((el) => {
       if (el.first_name.toLowerCase().includes(input) || el.last_name.toLowerCase().includes(input)) {
@@ -52,6 +51,7 @@ const Users = ({ data }) => {
       <div className="row">
         <Table data={renderArr} />
       </div>
+     
     </div>
   );
 };
