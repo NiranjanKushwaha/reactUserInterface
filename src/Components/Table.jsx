@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
-const Table = ({ data }) => {
+const Table = ({ data}) => {
   let pageSize = 50;
   console.log("data received in table: " + data.length);
   let totalPages = Math.ceil(data.length / pageSize);
@@ -9,6 +9,7 @@ const Table = ({ data }) => {
   let [endIndex, setEndIndex] = useState(
     Math.ceil(data.length / totalPages) - 1
   );
+  const [currentPageData, setCurrentPageData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [Asc1, setAsc1] = useState(false);
   const [Dsc1, setDsc1] = useState(true);
@@ -97,43 +98,6 @@ const Table = ({ data }) => {
     }
   };
 
-  // const sortTable = (columnName,num) => {
-  //   let columnNames=["first_name","last_name","age","email","web"];
-  //   columnNames.filter(el=>el===columnName).map(el=>{
-  //     if (!Asc) {
-  //       data.sort((a, b) =>
-  //         a.el > b.el ? 1 : b.el > a.el ? -1 : 0
-  //       );
-  //       setAsc(true);
-  //       setDsc(false);
-  //     }
-  //     if (!Dsc) {
-  //       data.sort((a, b) =>
-  //         a.el < b.el ? 1 : b.el < a.el ? -1 : 0
-  //       );
-  //       setDsc(true);
-  //       setAsc(false);
-  //     }
-  //     return data;
-  //   })
-  // if (columnName === "first_name") {
-  //   if (!Asc) {
-  //     data.sort((a, b) =>
-  //       a.first_name > b.first_name ? 1 : b.first_name > a.first_name ? -1 : 0
-  //     );
-  //     setAsc(true);
-  //     setDsc(false);
-  //   }
-  //   if (!Dsc) {
-  //     data.sort((a, b) =>
-  //       a.first_name < b.first_name ? 1 : b.first_name < a.first_name ? -1 : 0
-  //     );
-  //     setDsc(true);
-  //     setAsc(false);
-  //   }
-  // }
-  // };
-
   for (let i = 1; i <= totalPages; i++) {
     pagesList.push(i);
   }
@@ -142,7 +106,9 @@ const Table = ({ data }) => {
     setEndIndex((page - 1) * pageSize + pageSize);
     setCurrentPage(page);
   };
-  useEffect(() => {}, [
+  useEffect(() => {
+    setCurrentPageData(data.slice(startIndex,endIndex));
+  }, [
     Asc1,
     Dsc1,
     Asc2,
@@ -153,7 +119,11 @@ const Table = ({ data }) => {
     Dsc4,
     Asc5,
     Dsc5,
+    startIndex,
+    endIndex,
+    data
   ]);
+  
   return (
     <div>
       <table className="table">
@@ -162,7 +132,7 @@ const Table = ({ data }) => {
             <th scope="col" onClick={() => sortTable("first_name")}>
               First Name &nbsp;
               <i
-                class={
+                className={
                   Asc1 ? "fas fa-caret-square-up" : "fas fa-caret-square-down"
                 }
               ></i>
@@ -170,7 +140,7 @@ const Table = ({ data }) => {
             <th scope="col" onClick={() => sortTable("last_name", 2)}>
               Last Name &nbsp;
               <i
-                class={
+                className={
                   Asc2 ? "fas fa-caret-square-up" : "fas fa-caret-square-down"
                 }
               ></i>
@@ -178,7 +148,7 @@ const Table = ({ data }) => {
             <th scope="col" onClick={() => sortTable("age")}>
               age &nbsp;
               <i
-                class={
+                className={
                   Asc3 ? "fas fa-caret-square-up" : "fas fa-caret-square-down"
                 }
               ></i>
@@ -186,7 +156,7 @@ const Table = ({ data }) => {
             <th scope="col" onClick={() => sortTable("email")}>
               Email &nbsp;
               <i
-                class={
+                className={
                   Asc4 ? "fas fa-caret-square-up" : "fas fa-caret-square-down"
                 }
               ></i>
@@ -194,7 +164,7 @@ const Table = ({ data }) => {
             <th scope="col" onClick={() => sortTable("web")}>
               Website &nbsp;
               <i
-                class={
+                className={
                   Asc5 ? "fas fa-caret-square-up" : "fas fa-caret-square-down"
                 }
               ></i>
@@ -202,8 +172,8 @@ const Table = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data &&
-            data.slice(startIndex, endIndex).map((el, index) => {
+          {currentPageData &&
+            currentPageData.map((el, index) => {
               return (
                 <tr key={index}>
                   <td className="clickable_fname">

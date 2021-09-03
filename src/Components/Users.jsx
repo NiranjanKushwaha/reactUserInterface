@@ -6,12 +6,15 @@ const Users = ({ data }) => {
   const [output, setOutput] = useState([]);
 
   const handleInput = (e) => {
+    if(e.target.value.trim()===''){
+      renderArr=data;
+    }
     setInput(e.target.value.toLowerCase());
     console.log("As entered: " +e.target.value);
     if (e.key === "Enter") {
       alert("Entered");
     }
-    searchName(e);
+    searchName(e.target.value.toLowerCase());
   };
 
   const handleKeyPress = (event) => {
@@ -19,12 +22,11 @@ const Users = ({ data }) => {
       searchName(event);
     }
   };
-  const searchName = (e) => {
-    e.preventDefault();
-    console.log("searchName button: "+input);
+  const searchName = (value) => {
+    console.log("searchName button: "+value);
     const filterArr = [];
     data.forEach((el) => {
-      if (el.first_name.toLowerCase().includes(input) || el.last_name.toLowerCase().includes(input)) {
+      if (el.first_name.toLowerCase().includes(value) || el.last_name.toLowerCase().includes(value)) {
         filterArr.push(el);
       }
     });
@@ -45,7 +47,7 @@ const Users = ({ data }) => {
             value={input}
             onKeyPress={handleKeyPress}
           />
-          <button onClick={searchName}>
+          <button>
             <i className="fas fa-search"></i>
           </button>
         </div>
