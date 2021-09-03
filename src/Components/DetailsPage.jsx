@@ -5,18 +5,15 @@ const DetailsPage = ({data}) => {
     let {id}=useParams();
     useEffect(()=>{
         let userData=data.filter(el=>el.id===parseInt(id));
-        console.log(userData);
         setUser(userData);
     },[id,data])
     return (
         <div>
         {user.map(el=>(
-            <div key={el.id} className="container">
-               
-            <table className="table detailsPageTable" border="1">
-                <thead>
-                <h1><Link to='/'><i class="fas fa-arrow-left"></i></Link> {el.first_name} {el.last_name}</h1>
-                </thead>
+            <div key={el.id} className="container detailsPage">
+               <h1 className="h1"><Link to='/'><i className="fas fa-arrow-left"></i></Link> {el.first_name} {el.last_name}</h1>
+            <table className="table detailsPageTable">
+                <tbody>
                 <tr>
                 <td> First Name: <strong>{el.first_name}</strong></td>
                 </tr>
@@ -28,6 +25,7 @@ const DetailsPage = ({data}) => {
                 <tr><td>Email: <strong>{el.email}</strong></td></tr>
                 <tr><td>Web: <strong>{el.web}</strong></td></tr>
                 <tr><td>Age: <strong>{el.age}</strong></td></tr>
+                </tbody>
             </table>
             </div>
         ))}

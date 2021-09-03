@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 const Table = ({ data}) => {
   let pageSize = 50;
-  console.log("data received in table: " + data.length);
   let totalPages = Math.ceil(data.length / pageSize);
   let [startIndex, setStartIndex] = useState(0);
   let [endIndex, setEndIndex] = useState(
@@ -185,7 +184,7 @@ const Table = ({ data}) => {
                   <td>{el.age}</td>
                   <td>{el.email}</td>
                   <td>
-                    <Link to={el.web} className="link" target="_blank">
+                    <Link to={el.web} className="link web-link" target="_blank">
                       {el.web}
                     </Link>
                   </td>

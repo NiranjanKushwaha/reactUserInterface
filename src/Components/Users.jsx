@@ -10,7 +10,6 @@ const Users = ({ data }) => {
       renderArr=data;
     }
     setInput(e.target.value.toLowerCase());
-    console.log("As entered: " +e.target.value);
     if (e.key === "Enter") {
       alert("Entered");
     }
@@ -19,11 +18,10 @@ const Users = ({ data }) => {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      searchName(event);
+      searchName(input);
     }
   };
   const searchName = (value) => {
-    console.log("searchName button: "+value);
     const filterArr = [];
     data.forEach((el) => {
       if (el.first_name.toLowerCase().includes(value) || el.last_name.toLowerCase().includes(value)) {

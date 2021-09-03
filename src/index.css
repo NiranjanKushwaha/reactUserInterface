@@ -33,15 +33,20 @@ code {
 .link:hover{
   color: hotpink;
 }
-
+.web-link{
+  color:royalblue;
+}
 .detailsPageTable{
   margin-top: 2rem;
   
 }
 
-.detailsPageTable tr{
+.detailsPage{
   border:1px solid gray;
-  padding: 2rem;
+}
+.detailsPageTable tr{
+  border-bottom:1px solid gray;
+  padding: 3rem;
 }
 
 .detailsPageTable tr>td{
